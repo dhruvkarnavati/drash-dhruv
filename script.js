@@ -2,6 +2,8 @@ var svg = document.querySelector("svg");
       var cursor = svg.createSVGPoint();
       var arrows = document.querySelector(".arrows");
       var randomAngle = 0;
+      var score = 0;
+      var scoreElement = document.getElementById('score');
 
 
       let target = { x: 900, y: 249.5 }; // center of target
@@ -157,22 +159,21 @@ var svg = document.querySelector("svg");
 
         var intersection = getIntersection(arrowSegment, lineSegment);
         if (intersection.segment1 && intersection.segment2) {
-          // Add hit effect animation
-          TweenMax.to("#target", 0.2, {
-            scale: 1.1,
-            filter: "brightness(1.5)",
-            onComplete: () => {
-              TweenMax.to("#target", 0.5, {
-                scale: 1,
-                filter: "brightness(1)",
-                ease: Elastic.easeOut
-              });
-            }
-          });
-          tween.pause();
           var dx = intersection.x - target.x;
           var dy = intersection.y - target.y;
           var distance = Math.sqrt(dx * dx + dy * dy);
+          
+          // Add scoring logic
+          if (distance < 7) {
+            // Bulls eye hit
+            score += 15;
+          } else {
+            // Regular target hit
+            score += 5;
+          }
+          scoreElement.textContent = score;
+          
+          tween.pause();
           var selector = ".hit";
           if (distance < 7) {
             selector = ".loveyou";
@@ -182,7 +183,9 @@ var svg = document.querySelector("svg");
       }
 
       function onMiss() {
-        // Damn!
+        // Subtract points on miss
+        score -= 20;
+        scoreElement.textContent = score;
         showMessage(".missyou");
       }
 
