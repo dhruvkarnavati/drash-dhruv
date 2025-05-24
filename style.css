@@ -132,3 +132,51 @@ body{
           font-size: 16px;
         }
       }
+
+      .scoring-info {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        padding: 12px 20px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        z-index: 999;
+        min-width: 140px;
+      }
+
+      .scoring-info h3 {
+        color: #88ce02;
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        text-align: left;
+      }
+
+      .score-line {
+        margin: 4px 0;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .score-line.bulls-eye { color: #ffcc00; }
+      .score-line.target { color: #F4531C; }
+      .score-line.miss { color: #aaa; }
+
+      @media (max-width: 768px) {
+        .scoring-info {
+          top: 20px;
+          right: 20px;
+          padding: 10px 15px;
+          font-size: 12px;
+        }
+        
+        .scoring-info h3 {
+          font-size: 14px;
+        }
+        
+        .score-line {
+          font-size: 12px;
+        }
+      }
