@@ -1,6 +1,6 @@
 body{
         margin:0;
-        background:#222;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
         
         margin:20px;
         touch-action:none;
@@ -15,9 +15,75 @@ body{
         position:fixed;
         top:0;
         left:0;
+        filter: drop-shadow(0 0 15px rgba(136, 206, 2, 0.1));
       }
       span{
-        color:white;
-        font-family:sans-serif;
-        opacity:.3;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        font-size: 18px;
+        padding: 15px 30px;
+        background: rgba(136, 206, 2, 0.15);
+        border-radius: 50px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(136, 206, 2, 0.3);
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        animation: float 2s infinite ease-in-out;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+      span:hover {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+      }
+      #target {
+        filter: drop-shadow(0 0 10px rgba(244, 83, 28, 0.5));
+        transition: all 0.3s ease;
+      }
+      #target path {
+        transition: all 0.3s ease;
+      }
+      #target:hover path {
+        filter: brightness(1.2);
+      }
+      #bow {
+        filter: drop-shadow(0 0 5px rgba(136, 206, 2, 0.5));
+      }
+      .arrow-angle {
+        filter: drop-shadow(0 0 3px rgba(136, 206, 2, 0.3));
+      }
+      .hit path {
+        filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.6));
+      }
+      .loveyou path {
+        filter: drop-shadow(0 0 8px rgba(244, 83, 28, 0.6));
+      }
+      .missyou path {
+        filter: drop-shadow(0 0 8px rgba(170, 170, 170, 0.4));
+      }
+      @keyframes float {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-10px); }
+      }
+      @keyframes glow {
+        0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+        50% { filter: drop-shadow(0 0 15px currentColor); }
+      }
+      .welcome-text {
+        fill: #88ce02;
+        filter: drop-shadow(0 0 8px rgba(136, 206, 2, 0.6));
+      }
+
+      .welcome-text .heart {
+        animation: heartbeat 1.5s infinite ease-in-out;
+        fill: #ff69b4;
+        filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.8));
+      }
+
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
       }
