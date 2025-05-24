@@ -157,6 +157,18 @@ var svg = document.querySelector("svg");
 
         var intersection = getIntersection(arrowSegment, lineSegment);
         if (intersection.segment1 && intersection.segment2) {
+          // Add hit effect animation
+          TweenMax.to("#target", 0.2, {
+            scale: 1.1,
+            filter: "brightness(1.5)",
+            onComplete: () => {
+              TweenMax.to("#target", 0.5, {
+                scale: 1,
+                filter: "brightness(1)",
+                ease: Elastic.easeOut
+              });
+            }
+          });
           tween.pause();
           var dx = intersection.x - target.x;
           var dy = intersection.y - target.y;
@@ -187,11 +199,13 @@ var svg = document.querySelector("svg");
           {
             rotation: -5,
             scale: 0,
-            transformOrigin: "center"
+            transformOrigin: "center",
+            filter: "drop-shadow(0 0 20px currentColor)"
           },
           {
             scale: 1,
-            ease: Back.easeOut
+            ease: Back.easeOut,
+            filter: "drop-shadow(0 0 10px currentColor)"
           },
           0.05
         );
