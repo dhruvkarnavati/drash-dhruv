@@ -11,12 +11,31 @@ var svg = document.querySelector("svg");
       let pivot = { x: 100, y: 250 }; // bow rotation point
       aim({ clientX: 320, clientY: 300 }); // set up start drag event
       window.addEventListener("mousedown", draw);
+      window.addEventListener("touchstart", handleTouchStart);
+      function handleTouchStart(e) {
+        e.preventDefault(); // Prevent scrolling
+        draw(e.touches[0]); // Pass the first touch point
+      }
+
       function draw(e) { // pull back arrow
         randomAngle = Math.random() * Math.PI * 0.03 - 0.015;
         TweenMax.to(".arrow-angle use", 0.3, { opacity: 1});
+        // Add both mouse and touch move/end listeners
         window.addEventListener("mousemove", aim);
         window.addEventListener("mouseup", loose);
+        window.addEventListener("touchmove", handleTouchMove);
+        window.addEventListener("touchend", handleTouchEnd);
         aim(e);
+      }
+
+      function handleTouchMove(e) {
+        e.preventDefault(); // Prevent scrolling
+        aim(e.touches[0]); // Pass the first touch point
+      }
+
+      function handleTouchEnd(e) {
+        e.preventDefault();
+        loose();
       }
 
       function aim(e) {
@@ -79,8 +98,11 @@ var svg = document.querySelector("svg");
 
       function loose() {
         // release arrow
+        // Remove both mouse and touch event listeners
         window.removeEventListener("mousemove", aim);
         window.removeEventListener("mouseup", loose);
+        window.removeEventListener("touchmove", handleTouchMove);
+        window.removeEventListener("touchend", handleTouchEnd);
 
         TweenMax.to("#bow", 0.4, {
           scaleX: 1,
@@ -188,8 +210,8 @@ var svg = document.querySelector("svg");
 
       function getMouseSVG(e) {
         // normalize mouse position within svg coordinates
-        cursor.x = e.clientX;
-        cursor.y = e.clientY;
+        cursor.x = e.clientX || e.pageX; // Handle both mouse and touch
+        cursor.y = e.clientY || e.pageY;
         return cursor.matrixTransform(svg.getScreenCTM().inverse());
       }
 
